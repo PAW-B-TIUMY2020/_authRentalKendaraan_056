@@ -13,6 +13,7 @@ using RentalKendaraan.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RentalKendaraan_20180140056.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace RentalKendaraan
 {
@@ -35,15 +36,28 @@ namespace RentalKendaraan
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            services.AddDbContext<RentKendaraanContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //service.AddDefaultIdentity<IdentityUser>()
+            //  .AddEntityFrameworkStores<RentKendaraanContext>();
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI()
                 .AddEntityFrameworkStores<RentKendaraanContext>().AddDefaultTokenProviders();
+
+            services.AddAuthorization(Options =>
+            {
+                Options.AddPolicy("readonlypolicy",
+                    builder => builder.RequireRole("Admin", "Manager", "Kasir"));
+                Options.AddPolicy("writepolicy",
+                    builder => builder.RequireRole("Admin", "Kasir"));
+                Options.AddPolicy("editpolicy",
+                    builder => builder.RequireRole("Admin", "Kasir"));
+                Options.AddPolicy("deletepolicy",
+                    builder => builder.RequireRole("Admin", "Kasir"));
+            });
+
+            services.AddScoped<Peminjaman>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

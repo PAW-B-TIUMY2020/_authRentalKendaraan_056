@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RentalKendaraan_20180140056.Models
 {
-    public partial class RentKendaraanContext : DbContext
+    public partial class RentKendaraanContext : IdentityDbContext
     {
         public RentKendaraanContext()
         {
@@ -191,6 +192,7 @@ namespace RentalKendaraan_20180140056.Models
                     .HasForeignKey(d => d.IdKendaraan)
                     .HasConstraintName("FK_Peminjaman_Kendaraan");
             });
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

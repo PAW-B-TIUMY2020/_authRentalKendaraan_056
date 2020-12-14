@@ -26,26 +26,56 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">RentalKendaraan</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">RentalKendaraan_071</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Daftar Rental<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Customers" asp-action="Index">Customer</a></li>
-                            <li><a asp-area="" asp-controller="Genders" asp-action="Index">Gender</a></li>
-                            <li><a asp-area="" asp-controller="Jaminans" asp-action="Index">Jaminan</a></li>
-                            <li><a asp-area="" asp-controller="JenisKendaraans" asp-action="Index">Jenis Kendaraan</a></li>
-                            <li><a asp-area="" asp-controller="Kendaraans" asp-action="Index">Kendaraan</a></li>
-                            <li><a asp-area="" asp-controller="KondisiKendaraans" asp-action="Index">Kondisi Kendaraan</a></li>
-                            <li><a asp-area="" asp-controller="Peminjamen" asp-action="Index">Peminjaman</a></li>
-                            <li><a asp-area="" asp-controller="Pengembalians" asp-action="Index">Pengembalian</a></li>
-                        </ul>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Role" asp-action="Index">Role</a></li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Daftar Rental<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Customers" asp-action="Index">Customer</a></li>
+                                <li><a asp-area="" asp-controller="Genders" asp-action="Index">Gender</a></li>
+                                <li><a asp-area="" asp-controller="Jaminans" asp-action="Index">Jaminan</a></li>
+                                <li><a asp-area="" asp-controller="JenisKendaraans" asp-action="Index">Jenis Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="Kendaraans" asp-action="Index">Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="KondisiKendaraans" asp-action="Index">Kondisi Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="Peminjamen" asp-action="Index">Peminjaman</a></li>
+                                <li><a asp-area="" asp-controller="Pengembalians" asp-action="Index">Pengembalian</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Daftar Rental<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Peminjamen" asp-action="Index">Peminjaman</a></li>
+                                <li><a asp-area="" asp-controller="Pengembalians" asp-action="Index">Pengembalian</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Kasir"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Daftar Rental<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Customers" asp-action="Index">Customer</a></li>
+                                <li><a asp-area="" asp-controller="Genders" asp-action="Index">Gender</a></li>
+                                <li><a asp-area="" asp-controller="Jaminans" asp-action="Index">Jaminan</a></li>
+                                <li><a asp-area="" asp-controller="JenisKendaraans" asp-action="Index">Jenis Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="Kendaraans" asp-action="Index">Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="KondisiKendaraans" asp-action="Index">Kondisi Kendaraan</a></li>
+                                <li><a asp-area="" asp-controller="Peminjamen" asp-action="Index">Peminjaman</a></li>
+                                <li><a asp-area="" asp-controller="Pengembalians" asp-action="Index">Pengembalian</a></li>
+                            </ul>
+                        </li>
+                    }
+
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
